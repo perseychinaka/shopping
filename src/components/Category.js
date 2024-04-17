@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Button, TextInput, View } from 'react-native';
 import { CategoryContext } from '../models';
 
-const AddCategoryScreen = () => {
+const AddCategoryScreen = ({ navigation }) => {
   const { setCategories, realm } = useContext(CategoryContext);
   const [category, setCategory] = useState({ id: '', name: '', description: '' });
 
