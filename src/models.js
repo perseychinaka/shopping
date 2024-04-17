@@ -1,5 +1,15 @@
 
 import Realm from 'realm';
+import React from 'react';
+
+const ProductsContext = React.createContext();
+const StockContext = React.createContext();
+const CategoryContext = React.createContext();
+const ProductDetailContext = React.createContext();
+const CustomerContext = React.createContext();
+const PurchaseContext = React.createContext();
+const PurchaseItemContext = React.createContext();
+
 
 class Category extends Realm.Object {
   static schema = {
@@ -88,4 +98,4 @@ class PurchaseItem extends Realm.Object {
   },
 };
 }
-export {Category, Product, Stock, ProductDetail, Customer, Purchase, PurchaseItem };
+export {Category, Product, Stock, ProductDetail, Customer, Purchase, PurchaseItem, ProductsContext, StockContext, CategoryContext, ProductDetailContext, CustomerContext, PurchaseContext, PurchaseItemContext};
