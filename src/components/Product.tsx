@@ -8,14 +8,16 @@ const itemWidth = (screenWidth - (numColumns + 1) * 10) / numColumns;
 interface ProductProps {
   id: string;
   name: string;
-  price: number;
+  description: string;
+  category: string;
 }
 
-const ProductComponent: React.FC<ProductProps> = ({ id, name, price }) => {
+const ProductComponent: React.FC<ProductProps> = ({ id, name, description,category }) => {
   return (
     <View key={id} style={styles.card}>
       <Text style={styles.name}>{name}</Text>
-      <Text style={styles.price}>{price}</Text>
+      <Text style={styles.name}>{description}</Text>
+      <Text style={styles.price}>{category}</Text>
     </View>
   );
 };

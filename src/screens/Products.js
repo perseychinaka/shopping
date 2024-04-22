@@ -1,40 +1,28 @@
-import React, { useEffect, useState,useContext } from 'react';
-import { Button, FlatList, View } from 'react-native';
-import Realm from 'realm';
-import { v4 as uuidv4 } from 'uuid';
-import ProductComponent from '../components/Product'; // Import the Product component
-import {Product} from '../models';
-import { ProductsContext } from '../context';
+import React, { useContext } from 'react';
+import { View } from 'react-native';
+import {AddFab} from '../components/fab';
+import ProductComponent from '../components/Product';
+import { CategoryContext } from '../models';
+import { FlatList } from 'react-native-gesture-handler';
+
 
 const ProductsScreen = ({ navigation }) => {
-  const { products, setProducts ,realm} = useContext(ProductsContext);
-  useEffect(() => {
-
-    // Query the list of all products
-    const products = realm.objects('Product');
-    setProducts([...products]); // Spread the results into a new array
-
-    return () => {
-      // Remember to close the realm when finished.
-      realm.close();
-    };
-  }, []);
-
-  const navigateToAddProduct = () => {
-    navigation.navigate('AddProduct');
-  };
+  const { products } = useContext(CategoryContext);
 
   return (
-    <View>
-      <Button title="Add Product" onPress={navigateToAddProduct} />
-      <FlatList
+    
+    <View style={{flex: 1, justifyContent: 'center'}}>
+        <FlatList
         data={products}
-        renderItem={({ item }) => <ProductComponent id={item.id} name={item.name} price={item.price} />}
+        renderItem={({ item }) => <ProductComponent id={item.id} name={item.name} description={item.description} category={item.category.name} />}
         keyExtractor={item => item.id}
-        numColumns={2} // Display 2 products in a row
+        numColumns={2}
       />
+<AddFab navigation={navigation} />
     </View>
   );
 };
+
+
 
 export default ProductsScreen;
