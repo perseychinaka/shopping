@@ -1,4 +1,3 @@
-
 import Realm from 'realm';
 import React from 'react';
 
@@ -10,92 +9,105 @@ const CustomerContext = React.createContext();
 const PurchaseContext = React.createContext();
 const PurchaseItemContext = React.createContext();
 
-
-class Category extends Realm.Object {
+class BaseModel extends Realm.Object {
   static schema = {
-  primaryKey: 'id',
-  name: 'Category',
-  properties: {
-    id: 'string',
-    name: 'string',
-    description: 'string',
-  },
-};
-}
-class Product extends Realm.Object {
-  static schema = {
-  primaryKey: 'id',
-  name: 'Product',
-  properties: {
-    id: 'string',
-    name: 'string',
-    description: 'string',
-    category: 'Category',
-  },
-};
+    primaryKey: 'id',
+    properties: {
+      id: 'string',
+    },
+  };
 }
 
-class Stock extends Realm.Object {
+class Category extends BaseModel {
   static schema = {
-  primaryKey: 'id',
-  name: 'Stock',
-  properties: {
-    id: 'string',
-    date: 'date',
-    total: 'double',
-  },
-};
-}
-class ProductDetail extends Realm.Object {
-  static schema = {
-  primaryKey: 'id',
-  name: 'ProductDetail',
-  properties: {
-    id: 'string',
-    product: 'Product',
-    quantity: 'int',
-    price: 'double',
-    size: 'string',
-    cost: 'double',
-    barcode: 'string',
-    expiry_date: 'date',
-  },
-};
-}
-class Customer extends Realm.Object {
-  static schema = {
-  primaryKey: 'id',
-  name: 'Customer',
-  properties: {
-    id: 'string',
-    name: 'string',
-    number: 'string',
-  },
-};
+    ...BaseModel.schema,
+    name: 'Category',
+    properties: {
+      ...BaseModel.schema.properties,
+      name: 'string',
+      description: 'string',
+    },
+  };
 }
 
-class Purchase extends Realm.Object {
+class Product extends BaseModel {
   static schema = {
-  primaryKey: 'id',
-  name: 'Purchase',
-  properties: {
-    id: 'string',
-    customer: 'Customer',
-    at: 'date',
-    total_paid: 'double',
-  },
-};
+    ...BaseModel.schema,
+    name: 'Product',
+    properties: {
+      ...BaseModel.schema.properties,
+      name: 'string',
+      description: 'string',
+      category: 'Category',
+    },
+  };
 }
-class PurchaseItem extends Realm.Object {
+
+class Stock extends BaseModel {
   static schema = {
-  primaryKey: 'id',
-  name: 'PurchaseItem',
-  properties: {
-    id: 'string',
-    purchase: 'Purchase',
-    detail: 'ProductDetail',
-    quantity: 'int',
-  },
-};
+    ...BaseModel.schema,
+    name: 'Stock',
+    properties: {
+      ...BaseModel.schema.properties,
+      date: 'date',
+      total: 'double',
+    },
+  };
 }
+
+class ProductDetail extends BaseModel {
+  static schema = {
+    ...BaseModel.schema,
+    name: 'ProductDetail',
+    properties: {
+      ...BaseModel.schema.properties,
+      product: 'Product',
+      quantity: 'int',
+      price: 'double',
+      size: 'string',
+      cost: 'double',
+      barcode: 'string',
+      expiry_date: 'date',
+    },
+  };
+}
+
+class Customer extends BaseModel {
+  static schema = {
+    ...BaseModel.schema,
+    name: 'Customer',
+    properties: {
+      ...BaseModel.schema.properties,
+      name: 'string',
+      number: 'string',
+    },
+  };
+}
+
+class Purchase extends BaseModel {
+  static schema = {
+    ...BaseModel.schema,
+    name: 'Purchase',
+    properties: {
+      ...BaseModel.schema.properties,
+      customer: 'Customer',
+      at: 'date',
+      total_paid: 'double',
+    },
+  };
+}
+
+class PurchaseItem extends BaseModel {
+  static schema = {
+    ...BaseModel.schema,
+    name: 'PurchaseItem',
+    properties: {
+      ...BaseModel.schema.properties,
+      purchase: 'Purchase',
+      detail: 'ProductDetail',
+      quantity: 'int',
+    },
+  };
+}
+
 export {Category, Product, Stock, ProductDetail, Customer, Purchase, PurchaseItem, ProductsContext, StockContext, CategoryContext, ProductDetailContext, CustomerContext, PurchaseContext, PurchaseItemContext};
