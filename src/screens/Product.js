@@ -20,9 +20,9 @@ export const AddProduct = ({navigation}) => {
     <View>
       <TextInput placeholder="Product Name" value={product.name} onChangeText={text => setProduct({...product, name: text})} />
       <TextInput placeholder="Product Description" value={product.description} onChangeText={text => setProduct({...product, description: text})} />
-      <Picker selectedValue={product.category.id} onValueChange={itemValue => setProduct({...product, category: categories.find(category => category.id === itemValue)})}>
+      {/* <Picker selectedValue={product.category.id} onValueChange={itemValue => setProduct({...product, category: categories.find(category => category.id === itemValue)})}>
         {categories.map(category => <Picker.Item key={category.id} label={category.name} value={category.id} />)}
-      </Picker>
+      </Picker> */}
       <Button title="Add Product" onPress={addProduct} />
     </View>
   );
